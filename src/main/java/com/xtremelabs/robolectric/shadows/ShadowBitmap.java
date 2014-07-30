@@ -38,6 +38,10 @@ public class ShadowBitmap {
     @Implementation
     public static Bitmap createBitmap(int width, int height, Bitmap.Config config) {
         Bitmap scaledBitmap = Robolectric.newInstanceOf(Bitmap.class);
+        if (width <= 0 || height <= 0) {
+            throw new IllegalArgumentException("width and height must be > 0");
+        }
+        
         ShadowBitmap shadowBitmap = shadowOf(scaledBitmap);
         shadowBitmap.appendDescription("Bitmap (" + width + " x " + height + ")");
         shadowBitmap.setWidth(width);
